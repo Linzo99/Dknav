@@ -1,0 +1,223 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+ScreenManagement:
+	transition: FadeTransition()
+	MenuScreen:
+		name : "Menu"
+	SearchScreen:
+		name : "Search"
+	ReseauScreen:
+		name : "Reseau"
+	TrajectoryScreen:
+		name : "Trajectory"
+
+<MenuScreen>
+	canvas:
+		Rectangle:
+			source : "bus1.jpg"
+			size: root.size
+
+	GridLayout:
+		cols: 2
+		rows: 2
+		padding : 30
+		spacing : 5
+		Button:
+			text : "Chercher"
+			font_size :30
+			background_color : 0,0,1,0.6
+			canvas.before:
+				Color:
+					rgba: 1,0,0,1
+				Line:
+					width: 1
+					rectangle: self.x, self.y, self.width, self.height
+
+			on_release : app.root.current="Search"
+		Button:
+			text : "Lignes"
+			font_size :30
+			background_color : 0,0,1,0.6			
+			canvas.before:
+				Color:
+					rgba: 1,0,0,1
+				Line:
+					width: 1
+					rectangle: self.x, self.y, self.width, self.height
+			on_release : app.root.current="Reseau"
+		Button:
+			text : "Trajet"
+			font_size :30
+			background_color : 0,0,1,0.6
+			canvas.before:
+				Color:
+					rgba: 1,0,0,1
+				Line:
+					width: 1
+					rectangle: self.x, self.y, self.width, self.height
+			on_release : app.root.current="Trajectory"
+
+
+
+
+
+<SearchScreen>:
+	canvas:
+		Rectangle:
+			source : "Dk.png"
+			size : root.size
+	FloatLayout:
+		id: search_id
+		Label:
+			text: "LIEU DEPART"
+			bold: True
+			color: 1,0,0,1
+			size_hint:None, None
+			height: 20
+			pos: root.width/2-self.width/2, root.height-20
+		
+		TextInput:
+			id: txt1
+			on_text: root.suggest(args)
+			hint_text: "Depart"
+			hint_text_color: 1,1,1,.5
+			size_hint: .5,None
+			height: 30
+			multiline: False
+			pos: root.width/2-self.width/2, root.height-50
+			background_color : 0,0,0,0.6
+			foreground_color: 1,1,1,1
+		Label:
+			text: "DESTINATION"
+			bold: True
+			index: 1
+			color: 1,0,0,1
+			size_hint: None, None
+			height: 30
+			pos: root.width/2-self.width/2, root.height-(80)
+		TextInput:
+			id: txt2
+			index: 1
+			on_text: root.suggest(args)
+			hint_text: "Arrivee"
+			hint_text_color: 1,1,1,.5
+			size_hint: .5,None
+			height: 30
+			multiline: False
+			pos: root.width/2-self.width/2, root.height-110
+			background_color : 0,0,0,0.6
+			foreground_color: 1,1,1,1
+		Button:
+			text: "GO"
+			background_color: 0,1,0,0.5
+			on_release: root.status()
+			size_hint: None, None
+			height: 30
+			pos: root.width/2-self.width/2, root.height-(140)
+		BoxLayout:
+			orientation: "vertical"
+			size_hint: .2, .3
+			pos_hint: {"top":.7}
+			pos: root.width/2-self.width/2, self.height
+			ScrollView:
+				size_hint: 1,None
+				GridLayout:
+					id: allowed_bus
+					cols: 1
+					row_default_height: 30
+					height: self.minimum_height
+					size_hint_y: None
+					canvas.before:
+						Color:
+							rgba: 1,0,0,1
+						Line:
+							width: 2
+							rectangle: self.x, self.y, self.width, self.height
+					canvas:
+						Color:
+							rgba: 0,0,1,.1
+						Rectangle:
+							pos: self.pos
+							size: self.size
+
+		Button:
+			id: combine
+			text: "show"
+			pos_hint: {"bottom":.9, "right":.6}
+			size_hint: .1,.06
+			opacity: 0
+			on_release: root.show_popup()
+		Button:
+			text: "Retour"
+			size_hint: .12,.06
+			pos_hint: {"right":1, "bottom":1}
+			background_color: 1,0,0,0.5
+			on_release: app.root.current="Menu"
+
+
+<ReseauScreen>:
+	canvas:
+		Rectangle:
+			source : "road.jpg"
+			size: root.size
+	BoxLayout:
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			pos_hint: {"top":1}
+			size_hint: 1,.5
+			Label:
+				text: "TATA"
+				font_size: 20
+				size_hint: 1,.1
+			BoxLayout:
+				orientation: "vertical"
+				ScrollView:
+					size_hint: 1,1
+					GridLayout:
+						id: grid1
+						cols: 1
+						height: self.minimum_height
+						size_hint_y: None
+						row_default_height: 100
+					
+		BoxLayout:
+			orientation: "vertical"
+			size_hint: 1,.5
+			Label:
+				text: "DDD"
+				font_size: 20
+				size_hint: 1,.1
+			BoxLayout:
+				orientation: "vertical"
+				ScrollView:
+					size_hint: 1,.5
+					GridLayout:
+						id: grid2
+						cols: 1
+						height: self.minimum_height
+						size_hint_y: None
+						row_default_height: 100
+
+<TrajectoryScreen>:
+	PageLayout:
+		page : 3
+		Button:
+			text : "hello"
+		Button:
+			text : "hello1"
+		Button:
+			text : "hello2"
+		Button:
+			text : "hello3"
+
+<CButton>:
+	background_color : 0,1,.5,.5
+	canvas:
+		Color:
+			rgba : 0,1,0,.5
+		Ellipse:
+			source : "bus1.jpg"
+
+<CLabel>:
+	color: 0,1,0,1
+	
